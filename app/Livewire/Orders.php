@@ -22,7 +22,7 @@ class Orders extends Component
             ->where('product_name', 'like', '%' . $this->search . '%')
             ->when($this->filterStatus, fn($query) => $query->where('status', $this->filterStatus))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(10);
+            ->paginate(2);
 
         return view('livewire.orders', ['orders' => $orders]);
     }

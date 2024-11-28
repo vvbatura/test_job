@@ -14,7 +14,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/orders', function () {
-        return view('orders');
-    })->name('orders');
+
+    Route::group(['prefix' => '/orders'], function() {
+        Route::get('', function () {
+            return view('orders');
+        })->name('orders');
+        Route::get('/new', [\App\Http\Controllers\OrderController::class, 'create'])->name('orders.new');
+    });
+
 });
