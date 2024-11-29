@@ -69,7 +69,7 @@
                 </td>
                 <td>
                     <div class="flex flex-col">
-                        <a href="{{ route('orders.edit', $order->id) }}" class="button">{{ __('page_orders.Edit') }}</a>
+                        <a href="{{ route('orders.edit', $order) }}" class="button">{{ __('page_orders.Edit') }}</a>
                         <button wire:click="deleteOrder({{ $order->id }})" class="button">{{ __('page_orders.Delete') }}</button>
                     </div>
                 </td>

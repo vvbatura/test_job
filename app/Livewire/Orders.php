@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Notifications\ChangeStatusOrder;
 use App\Services\OrderService;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -68,7 +69,8 @@ class Orders extends Component
     {
         $order = $this->service->getItem($orderId);
         if (($this->changeStatus[$orderId] ?? 0) && $order->status != $this->changeStatus[$orderId]) {
-            $this->service->updateItem($order, [ 'status' => $this->changeStatus[$orderId] ]);
+            $order = $this->service->updateItem($order, [ 'status' => $this->changeStatus[$orderId] ]);
+            $order->user->notify(new ChangeStatusOrder($order));
         }
     }
 

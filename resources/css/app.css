@@ -5,6 +5,9 @@
 [x-cloak] {
     display: none;
 }
+tr {
+    border-bottom: 1px solid gray;
+}
 th, td {
     padding: 8px;
 }

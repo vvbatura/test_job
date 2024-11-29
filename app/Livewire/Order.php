@@ -52,7 +52,7 @@ class Order extends Component
         $this->order = $this->service->updateItem($this->order, $validated);
 
         if (!$id) {
-            return redirect()->route('orders.edit', ['order' => $this->order->id ]);
+            return redirect()->route('orders.edit', $this->order);
         }
     }
 
