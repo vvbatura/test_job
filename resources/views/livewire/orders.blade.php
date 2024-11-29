@@ -1,13 +1,13 @@
 <div class="p-3">
-    <input type="text" wire:model="search" placeholder="Search..." class="form-control mb-3">
+    <input wire:model.live="search" type="text" placeholder="Search..." class="form-control mb-3">
 
-    <select wire:model="filterStatus">
+    <select wire:model="filterStatus" class="select">
         @foreach(\App\Enums\OrderStatusesEnum::toArrayFromOne() as $key => $item)
             <option value="{{ $key }}">{{ __('page_orders.statuses.' . $item) }}</option>
         @endforeach
     </select>
 
-    <a href="{{ route('orders.new') }}" class="border-2 p-1 float-end">{{ __('page_orders.New Order') }}</a>
+    <a href="{{ route('orders.new') }}" class="button float-end">{{ __('page_orders.New Order') }}</a>
 
     <table class="table table-striped">
         <thead>
@@ -36,7 +36,14 @@
                     <span>{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                 @endif
             </th>
-            <th>{{ __('page_orders.Date created') }}</th>
+            <th wire:click="sortBy('created_at')" style="cursor: pointer;">
+                {{ __('page_orders.Date created') }}
+            </th>
+            <th wire:click="sortBy('updated_at')" style="cursor: pointer;">
+                {{ __('page_orders.Date updated') }}
+            </th>
+            <th>{{ __('page_orders.Change Status') }}</th>
+            <th>{{ __('page_orders.Action') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -47,6 +54,25 @@
                 <td>{{ $order->amount }}</td>
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->created_at->format('d.m.Y') }}</td>
+                <td>{{ $order->updated_at->format('d.m.Y') }}</td>
+                <td>
+                    <div class="flex flex-col">
+                        <select wire:model="changeStatus.{{ $order->id }}" class="select">
+                            @foreach(\App\Enums\OrderStatusesEnum::toArrayFromOne() as $key => $item)
+                                <option value="{{ $key }}" {{ $key == $order->status ? 'selected' : '' }}>
+                                    {{ __('page_orders.statuses.' . $item) }}</option>
+                            @endforeach
+                        </select>
+                        <button wire:click="changeStatusOrder({{ $order->id }})" class="button">{{ __('page_orders.Change') }}</button>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="flex flex-col">
+                        <a href="{{ route('orders.edit', $order->id) }}" class="button">{{ __('page_orders.Edit') }}</a>
+                        <button wire:click="deleteOrder({{ $order->id }})" class="button">{{ __('page_orders.Delete') }}</button>
+                    </div>
+                </td>
             </tr>
         @empty
             <tr>

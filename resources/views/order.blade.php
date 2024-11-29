@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $order->id ? (__('Edit Order') . 'ID = ' . $order->id) : __('New Order') }}
+            {{ $order->id ? (__('Edit Order') . ' ID = ' . $order->id) : __('New Order') }}
         </h2>
     </x-slot>
 

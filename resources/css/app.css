@@ -11,3 +11,13 @@ th, td {
 .text-red {
     color: red;
 }
+.button {
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    color: blue;
+}
+.select {
+    margin: 5px;
+}

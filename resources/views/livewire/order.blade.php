@@ -13,12 +13,12 @@
 
     <div class="mb-3">
         <label for="status" class="form-label">{{ __('page_orders.Status') }}</label>
-        <select id="status" wire:model="status">
+        <select id="status" wire:model="status" class="select">
             @foreach(\App\Enums\OrderStatusesEnum::toArrayFromOne() as $key => $item)
                 <option value="{{ $key }}">{{ __('page_orders.statuses.' . $item) }}</option>
             @endforeach
         </select>
     </div>
 
-    <button wire:click="save" class="border-2 p-1">{{ __('page_orders.Save') }}</button>
+    <button wire:click="save" class="button">{{ __('page_orders.Save') }}</button>
 </div>

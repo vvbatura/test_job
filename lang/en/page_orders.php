@@ -14,7 +14,13 @@ return [
     'Amount' => 'Amount',
     'Status' => 'Status',
     'Date created' => 'Date created',
+    'Date updated' => 'Date updated',
     'Empty Data' => 'Empty Data',
     'Save' => 'Save',
+    'Change Status' => 'Change Status',
+    'Action' => 'Action',
+    'Change' => 'Change',
+    'Edit' => 'Edit',
+    'Delete' => 'Delete',
 
 ];

@@ -3,12 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Order as ModelsOrder;
+use App\Services\OrderService;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 
 class Order extends Component
 {
+
+    protected ?OrderService $service = null;
     public ModelsOrder $order;
     #[Validate('required|min:3')]
     public string $product_name = '';
@@ -16,6 +19,15 @@ class Order extends Component
     public float $amount = 0;
     #[Validate('required')]
     public int $status = 1;
+
+    /**
+     * @param OrderService $service
+     * @return void
+     */
+    public function boot(OrderService $service): void
+    {
+        $this->service = $service;
+    }
 
     /**
      * @param ModelsOrder $order
@@ -35,9 +47,13 @@ class Order extends Component
 
         $validated['user_id'] = auth()->id();
 
-        $this->order->fill($validated);
-        $this->order->save();
-        return redirect('orders');
+        $id = $this->order->id;
+
+        $this->order = $this->service->updateItem($this->order, $validated);
+
+        if (!$id) {
+            return redirect()->route('orders.edit', ['order' => $this->order->id ]);
+        }
     }
 
     public function render(): View
