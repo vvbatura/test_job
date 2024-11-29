@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Exports\OrdersExport;
 use App\Notifications\ChangeStatusOrder;
 use App\Services\OrderService;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Orders extends Component
 {
@@ -81,5 +83,10 @@ class Orders extends Component
     public function deleteOrder(int $orderId): void
     {
         $this->service->deleteItem($orderId);
+    }
+
+    public function exportToXLS()
+    {
+        return Excel::download(new OrdersExport(), 'orders.xlsx');
     }
 }

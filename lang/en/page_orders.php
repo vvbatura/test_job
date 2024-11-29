@@ -22,5 +22,6 @@ return [
     'Change' => 'Change',
     'Edit' => 'Edit',
     'Delete' => 'Delete',
+    'Export Orders To XLS' => 'Export Orders To XLS',
 
 ];

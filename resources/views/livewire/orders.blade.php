@@ -8,6 +8,7 @@
     </select>
 
     <a href="{{ route('orders.new') }}" class="button float-end">{{ __('page_orders.New Order') }}</a>
+    <button wire:click="exportToXLS" class="button float-end">{{ __('page_orders.Export Orders To XLS') }}</button>
 
     <table class="table table-striped">
         <thead>
